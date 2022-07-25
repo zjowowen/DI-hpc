@@ -98,9 +98,6 @@ def coma_perf(do_backward: bool = True):
     if use_cuda:
         hpc_coma_error.cuda()
 
-    ori_logit, ori_action, ori_q_value, ori_target_q_value, ori_reward, ori_weight, \
-        hpc_logit, hpc_action, hpc_q_value, hpc_target_q_value, hpc_reward, hpc_weight=generate_data()
-
     ori_test_data = []
     hpc_test_data = []
     for i in range(times):
@@ -122,6 +119,9 @@ def coma_perf(do_backward: bool = True):
             hpc_reward,
             hpc_weight,
         ))
+
+    ori_logit, ori_action, ori_q_value, ori_target_q_value, ori_reward, ori_weight, \
+        hpc_logit, hpc_action, hpc_q_value, hpc_target_q_value, hpc_reward, hpc_weight=generate_data()
 
     for i in range(warm_up_times):
         ori_data = coma_data(ori_logit, ori_action, ori_q_value,

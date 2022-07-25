@@ -41,8 +41,6 @@ def gru_perf():
         ori_gru.cuda()
         hpc_gru.cuda()
 
-    ori_x, ori_y, hpc_x, hpc_y = generate_data()
-
     ori_test_data = []
     hpc_test_data = []
     for i in range(times):
@@ -55,6 +53,8 @@ def gru_perf():
             hpc_x,
             hpc_y,
         ))
+
+    ori_x, ori_y, hpc_x, hpc_y = generate_data()
 
     for i in range(warm_up_times):
         ori_out = ori_gru(ori_x, ori_y)
@@ -71,7 +71,7 @@ def gru_perf():
         print('epoch: {}, origin coma cost time: {}'.format(i, t1 - t0))
 
     for i in range(warm_up_times):
-        hpc_out = hpc_gru(ori_x, ori_y)
+        hpc_out = hpc_gru(hpc_x, hpc_y)
         if use_cuda:
             torch.cuda.synchronize()
 
